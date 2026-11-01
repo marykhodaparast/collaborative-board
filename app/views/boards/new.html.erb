@@ -1,0 +1,31 @@
+<div class="page-container">
+  <div class="form-card">
+    <%= link_to "← Back to boards", root_path, class: "back-link" %>
+
+    <h1>Create a new board</h1>
+    <p class="subtitle">
+      Give your board a name and start collaborating.
+    </p>
+
+    <%= form_with model: @board, class: "board-form" do |form| %>
+      <% if @board.errors.any? %>
+        <div class="error-messages">
+          <% @board.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :title, "Board name" %>
+        <%= form.text_field :title,
+            placeholder: "e.g. Product brainstorming",
+            maxlength: 100,
+            autofocus: true,
+            required: true %>
+      </div>
+
+      <%= form.submit "Create board", class: "primary-button" %>
+    <% end %>
+  </div>
+</div>

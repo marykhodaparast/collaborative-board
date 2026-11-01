@@ -1,0 +1,55 @@
+<div class="dashboard">
+  <header class="dashboard-header">
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+      <span>Canvasly</span>
+    </div>
+
+    <%= link_to "＋ Create board", new_board_path, class: "primary-button" %>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="welcome-section">
+      <p class="eyebrow">YOUR CREATIVE SPACE</p>
+      <h1>Ideas start here.</h1>
+      <p class="subtitle">
+        Create, share, and bring your team's ideas to life.
+      </p>
+    </section>
+
+    <section class="boards-section">
+      <div class="section-heading">
+        <h2>Your boards</h2>
+        <span class="board-count"><%= @boards.count %> boards</span>
+      </div>
+
+      <% if @boards.any? %>
+        <div class="boards-grid">
+          <% @boards.each do |board| %>
+            <%= link_to board_path(board), class: "board-card" do %>
+              <div class="board-preview">
+                <span class="preview-decoration">✳</span>
+                <span class="preview-lines"></span>
+              </div>
+
+              <div class="board-card-info">
+                <h3><%= board.title %></h3>
+                <p>
+                  <%= pluralize(board.pages.count, "page") %>
+                  · Updated <%= time_ago_in_words(board.updated_at) %> ago
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <div class="empty-icon">✦</div>
+          <h3>Your workspace is waiting</h3>
+          <p>Create your first board and start collecting ideas.</p>
+          <%= link_to "Create your first board", new_board_path, class: "primary-button" %>
+        </div>
+      <% end %>
+    </section>
+  </main>
+</div>

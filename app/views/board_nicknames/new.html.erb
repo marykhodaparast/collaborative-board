@@ -1,0 +1,35 @@
+<div class="page-container">
+  <div class="form-card">
+    <%= link_to "← Back to boards", root_path, class: "back-link" %>
+
+    <div class="brand-icon" style="margin-top: 30px;">✦</div>
+
+    <h1>Join the board</h1>
+
+    <p class="subtitle">
+      You're joining <strong><%= @board.title %></strong>.
+      Choose a nickname so other collaborators know who's drawing.
+    </p>
+
+    <% if flash[:alert].present? %>
+      <div class="error-messages">
+        <p><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+
+    <%= form_with url: board_nickname_path(@board), method: :post,
+                  class: "board-form" do |form| %>
+      <div class="form-group">
+        <%= form.label :nickname, "Your nickname" %>
+
+        <%= form.text_field :nickname,
+            placeholder: "e.g. Alex",
+            maxlength: 30,
+            autofocus: true,
+            required: true %>
+      </div>
+
+      <%= form.submit "Join board", class: "primary-button" %>
+    <% end %>
+  </div>
+</div>
